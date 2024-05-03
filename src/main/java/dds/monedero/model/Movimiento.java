@@ -24,11 +24,11 @@ public class Movimiento {
     return fecha;
   }
 
-  // yagni
+  // misplaced method
   public boolean fueDepositado(LocalDate fecha) {
     return isDeposito() && esDeLaFecha(fecha);
   }
-  // yagni
+  // misplaced method
   public boolean fueExtraido(LocalDate fecha) {
     return isExtraccion() && esDeLaFecha(fecha);
   }
