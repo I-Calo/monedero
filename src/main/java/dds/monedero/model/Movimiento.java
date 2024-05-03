@@ -8,7 +8,7 @@ public class Movimiento {
   // En su lugar siempre usen numeros de precision arbitraria o punto fijo, como BigDecimal en Java y similares
   // De todas formas, NO es necesario modificar ésto como parte de este ejercicio. 
   private double monto;
-  private boolean esDeposito;
+  public boolean esDeposito;
 
   public Movimiento(LocalDate fecha, double monto, boolean esDeposito) {
     this.fecha = fecha;
@@ -26,18 +26,18 @@ public class Movimiento {
 
   // misplaced method
   public boolean fueDepositado(LocalDate fecha) {
-    return isDeposito() && esDeLaFecha(fecha);
+    return this.esDeposito && esDeLaFecha(fecha);
   }
   // misplaced method
   public boolean fueExtraido(LocalDate fecha) {
-    return isExtraccion() && esDeLaFecha(fecha);
+    return !this.esDeposito && esDeLaFecha(fecha);
   }
 
   public boolean esDeLaFecha(LocalDate fecha) {
     return this.fecha.equals(fecha);
   }
 
-  // type test
+  /* type test
   public boolean isDeposito() {
     return esDeposito;
   }
@@ -45,7 +45,7 @@ public class Movimiento {
   // este es absurdo
   public boolean isExtraccion() {
     return !esDeposito;
-  }
+  }*/
 
   // misplaced method
   public void agregateA(Cuenta cuenta) {
