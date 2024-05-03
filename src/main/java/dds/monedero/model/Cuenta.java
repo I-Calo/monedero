@@ -86,6 +86,14 @@ public class Cuenta {
     }
   }
 
+  public boolean fueDepositado(LocalDate fecha) {
+    return getMovimientos().stream().anyMatch(movimiento -> movimiento.esDeposito && movimiento.esDeLaFecha(fecha));
+  }
+
+  public boolean fueExtraido(LocalDate fecha) {
+    return getMovimientos().stream().anyMatch(movimiento -> !movimiento.esDeposito && movimiento.esDeLaFecha(fecha));
+  }
+
   public List<Movimiento> getMovimientos() {
     return movimientos;
   }
