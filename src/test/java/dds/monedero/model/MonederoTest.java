@@ -82,14 +82,15 @@ public class MonederoTest {
 
   @Test
   public void HuboUnDepositoHoy() {
-    Movimiento movimiento = new Movimiento(LocalDate.now(),10000000,true);
-    assertTrue(movimiento.fueDepositado(LocalDate.now()));
+    cuenta.poner(10);
+    cuenta.fueDepositado(LocalDate.now());
   }
 
   @Test
   public void HuboUnaExtraccionHoy() {
-    Movimiento movimiento = new Movimiento(LocalDate.now(),1000,false);
-    assertTrue(movimiento.fueExtraido(LocalDate.now()));
+    cuenta.setSaldo(1000);
+    cuenta.sacar(400);
+    cuenta.fueDepositado(LocalDate.now());
   }
 
 

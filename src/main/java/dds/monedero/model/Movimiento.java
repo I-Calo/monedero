@@ -24,14 +24,14 @@ public class Movimiento {
     return fecha;
   }
 
-  // misplaced method
+  /* misplaced method
   public boolean fueDepositado(LocalDate fecha) {
     return this.esDeposito && esDeLaFecha(fecha);
   }
   // misplaced method
   public boolean fueExtraido(LocalDate fecha) {
     return !this.esDeposito && esDeLaFecha(fecha);
-  }
+  }*/
 
   public boolean esDeLaFecha(LocalDate fecha) {
     return this.fecha.equals(fecha);
