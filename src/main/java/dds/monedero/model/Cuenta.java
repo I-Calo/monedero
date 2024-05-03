@@ -11,6 +11,7 @@ import java.util.List;
 
 public class Cuenta {
 
+  // iniciar el saldo en 0 no tiene sentido ya que hacemos lo mismo en el constructor
   private double saldo = 0;
   private List<Movimiento> movimientos = new ArrayList<>();
 
@@ -18,6 +19,7 @@ public class Cuenta {
     saldo = 0;
   }
 
+  // basicamente estamos repitiendo logica con el constructor anterior (duplicated code)
   public Cuenta(double montoInicial) {
     saldo = montoInicial;
   }
@@ -26,15 +28,16 @@ public class Cuenta {
     this.movimientos = movimientos;
   }
 
+
   public void poner(double cuanto) {
     if (cuanto <= 0) {
       throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
     }
-
+    // aca tenemos un caso de type test
     if (getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count() >= 3) {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
     }
-
+    // el code smell mas similar a lo que veo aca seria inappropriate intimacy ya que lo de agregar a la lista de movimientos lo podria hacer la cuenta directamenta
     new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
   }
 
@@ -51,6 +54,7 @@ public class Cuenta {
       throw new MaximoExtraccionDiarioException("No puede extraer mas de $ " + 1000
           + " diarios, límite: " + limite);
     }
+    // es casi igual al del metodo poner
     new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
   }
 
@@ -59,6 +63,7 @@ public class Cuenta {
     movimientos.add(movimiento);
   }
 
+  // aca tenemos el tema del type test en isDeposito
   public double getMontoExtraidoA(LocalDate fecha) {
     return getMovimientos().stream()
         .filter(movimiento -> !movimiento.isDeposito() && movimiento.getFecha().equals(fecha))

@@ -24,10 +24,11 @@ public class Movimiento {
     return fecha;
   }
 
+  // yagni
   public boolean fueDepositado(LocalDate fecha) {
     return isDeposito() && esDeLaFecha(fecha);
   }
-
+  // yagni
   public boolean fueExtraido(LocalDate fecha) {
     return isExtraccion() && esDeLaFecha(fecha);
   }
@@ -36,19 +37,23 @@ public class Movimiento {
     return this.fecha.equals(fecha);
   }
 
+  // type test
   public boolean isDeposito() {
     return esDeposito;
   }
 
+  // este es absurdo
   public boolean isExtraccion() {
     return !esDeposito;
   }
 
+  // misplaced method
   public void agregateA(Cuenta cuenta) {
     cuenta.setSaldo(calcularValor(cuenta));
     cuenta.agregarMovimiento(fecha, monto, esDeposito);
   }
 
+  // misplaced method
   public double calcularValor(Cuenta cuenta) {
     if (esDeposito) {
       return cuenta.getSaldo() + getMonto();
