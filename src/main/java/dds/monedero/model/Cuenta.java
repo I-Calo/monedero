@@ -12,14 +12,14 @@ import java.util.List;
 public class Cuenta {
 
   // iniciar el saldo en 0 no tiene sentido ya que hacemos lo mismo en el constructor
-  private double saldo = 0;
+  private double saldo;// = 0;
   private List<Movimiento> movimientos = new ArrayList<>();
 
   public Cuenta() {
     saldo = 0;
   }
 
-  // basicamente estamos repitiendo logica con el constructor anterior (duplicated code)
+
   public Cuenta(double montoInicial) {
     saldo = montoInicial;
   }
