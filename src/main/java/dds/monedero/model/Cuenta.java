@@ -38,7 +38,8 @@ public class Cuenta {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
     }
     // el code smell mas similar a lo que veo aca seria inappropriate intimacy ya que lo de agregar a la lista de movimientos lo podria hacer la cuenta directamenta
-    new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
+    //new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
+    this.realizarOperacion(LocalDate.now(), cuanto, true);
   }
 
   public void sacar(double cuanto) {
@@ -55,7 +56,8 @@ public class Cuenta {
           + " diarios, límite: " + limite);
     }
     // es casi igual al del metodo poner
-    new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
+    //new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
+    this.realizarOperacion(LocalDate.now(), cuanto, false);
   }
 
   public void agregarMovimiento(LocalDate fecha, double cuanto, boolean esDeposito) {
@@ -69,6 +71,19 @@ public class Cuenta {
         .filter(movimiento -> !movimiento.esDeposito && movimiento.getFecha().equals(fecha))
         .mapToDouble(Movimiento::getMonto)
         .sum();
+  }
+
+  public void realizarOperacion(LocalDate fecha, double monto, boolean esDeposito) {
+    this.setSaldo(calcularValor(monto, esDeposito));
+    this.agregarMovimiento(fecha, monto, esDeposito);
+  }
+
+  public double calcularValor(double monto, boolean esDeposito) {
+    if (esDeposito) {
+      return this.getSaldo() + monto;
+    } else {
+      return this.getSaldo() - monto;
+    }
   }
 
   public List<Movimiento> getMovimientos() {
